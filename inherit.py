@@ -10,9 +10,9 @@ class Book:
         self.year = year
     
     def get_info(self):
-        print('Название книги: ', self.title)
-        print('Автор книги: ', self.author)
-        print('Год выпуска книги: ', self.year)
+        print('Название книги:', self.title)
+        print('Автор книги:', self.author)
+        print('Год выпуска книги:', self.year)
     
     def is_actual(self):
         if 2025 - self.year <= 5 :
@@ -33,8 +33,8 @@ class EBook(Book):
     
     def get_info(self):
         super().get_info()
-        print("Размер книги: ", self.file_size)
-        print("Формат файла с книгой: ", self.format)
+        print("Размер книги:", self.file_size)
+        print("Формат файла с книгой:", self.format)
     
     def is_actual(self):
         super().is_actual()
@@ -62,6 +62,9 @@ class EBook(Book):
         else:
             print("Книга недоступна")
 
+    def __del__(self):
+        return super().__del__()
+
 
 def parse_folder(path):
     files = []
@@ -72,6 +75,16 @@ def parse_folder(path):
             files.append(file)
     
     return files
+
+def book_format(title):
+    form = ""
+    for i in range(0, len(title)):
+        if title[i] == ".":
+            k=i
+    for i in range(k+1, len(title)):
+        form = form + title[i]
+    return form
+
 
 def program():
     user_choose = int(input("Если вы работаете с книгами введите 1, если работаете с электронными введите 2: "))
@@ -87,7 +100,7 @@ def program():
         author = input('Введите автора книги: ')
         year = int(input('Введите год выпуска книги: '))
         size = int(input('Введите размер книги: '))
-        format = input('Введите формат файла с книгой: ')
+        format = book_format(title)
         links = parse_folder("books")
         # for i in links:
         #     print(i)
